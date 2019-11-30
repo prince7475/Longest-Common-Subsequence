@@ -1,0 +1,68 @@
+Implement a function that returns the longest subsequence common to two given strings. 
+A subsequence is defined as a group of characters that appear sequentially, with no 
+importance given to their actual position in a string. In other words, characters do not 
+need to appear consecutively in order to form a subsequence. Assume that there will only 
+be one longest common subsequence.
+
+Sample input: "ZXVVYZW", "XKYKZPW"
+Output: [X,Y,Z,W]
+function longestCommonSubsequence(str1,str2){
+  const matrix = []
+  for(let i = 0; i <= str1.length; i++){
+    let row = []
+    for(let j = 0; j <= str2.length; j++){
+      row.push([])
+    }
+    matrix.push(row)
+  }
+  
+  
+  for(let i = 1; i <= str1.length; i++){
+    for(let j = 1; j <= str2.length; j++){
+      
+        if(str1[i - 1] === str2[j - 1]){
+          matrix[i][j] = matrix[i - 1][j - 1].concat(str1[i - 1])
+        }else {
+          matrix[i][j] = matrix[i - 1][j].length > matrix[i][j - 1].length ? matrix[i - 1][j] : matrix[i][j - 1]
+        }
+    
+    }
+  }
+  return matrix[str1.length][str2.length]
+}
+
+Time -> O(NM) // nested loop
+Space -> O(NM) // creating the matrix
+main(str1, str2)
+  matrix = [] // nested array row-> str1, col -> str2.length (inclusive)
+  
+  for(let i = 1; i < str1.length; i++){
+      
+      for(let j = 1; j < str2.length; j++){
+        if(str1[i - 1] === str2[j - 1]){
+          matrix[i][j] = matrix[i - 1][j - 1].concat(str1[i - 1])
+        }else {
+        matrix[i][j] = matrix[i - 1][j].length > matrix[i][j - 1] ? matrix[i - 1][j] : matrix[i][j - 1]
+        }
+      
+      }
+    
+  }
+  return matrix[str1.length][str2.length]
+  }
+  "Z I"
+    Y Z B I
+  C " " "
+  Z " Z Z Z
+  X " Z Z Z
+  I " Z Z
+  
+  When not equal, Top, Left
+  matrix[i][j] = matrix[i - 1][j].length > matrix[i][j - 1] ? matrix[i - 1][j] : matrix[i][j - 1]
+  
+  when equal
+matrix[i][j] =  matrix[i - 1][j - 1].push(letter)
+
+
+
+
